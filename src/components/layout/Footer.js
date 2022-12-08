@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Logo from './partials/Logo';
+import { AiFillHeart } from "react-icons/ai";
 // import FooterNav from './partials/FooterNav';
 // import FooterSocial from './partials/FooterSocial';
 
@@ -45,7 +46,7 @@ const Footer = ({
           </div>
           <div className="footer-bottom space-between text-xxs invert-order-desktop">
             {/* <FooterNav /> */}
-            <div className="footer-copyright">Recicled by <a href="https://github.com/TrinidadMartiG"></a>. All right reserved</div>
+            <div className="footer-copyright">Recicled by <a href="https://github.com/TrinidadMartiG"> Trini</a>. All right reserved</div>
           </div>
         </div>
       </div>

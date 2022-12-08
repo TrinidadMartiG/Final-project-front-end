@@ -4,9 +4,9 @@ import { Link, useParams } from "react-router-dom";
 function Login() {
     return (
         <>
-            <div className="container border my-3 ">
-                <h2 className="mx-auto text-center p-3">Sing in</h2>
-                <div className="mx-auto text-center my-5">
+            <div className="row mt-5 ">
+                <h2 className="mx-auto text-center p-3">Log in</h2>
+                <div className="col-lg-4 border border-white m-auto mx-auto text-center">
                     <form>
                         <div class="mb-3">
                             <label for="exampleInputUser" class="form-label">User</label>
@@ -17,10 +17,10 @@ function Login() {
                             <input type="password" class="form-control" id="exampleInputPassword1" />
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn btn-dark">Enter</button>
                     </form>
                     <Link to='/' >
-                        <button className="btn btn-primary my-5 "> Volver al Home </button>
+                        <button className="btn btn-dark my-5 ">Back to home</button>
                     </Link>
                 </div>
             </div>

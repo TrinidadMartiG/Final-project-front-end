@@ -6,7 +6,7 @@ function RegistrationForm() {
     return (
         <>
             <div className="row mt-5">
-                <div className="col-lg-4 bg-white m-auto">
+                <div className="col-lg-4 border border-white m-auto mx-auto text-center">
                     <h2 className="text-center pt-3">Sign up form</h2>
                     {/* Form start */}
                     <form id="form" action="#" className="">
@@ -18,21 +18,14 @@ function RegistrationForm() {
                             <span class="input-group-text" id="basic-addon1">Email</span>
                             <input type="email" class="form-control" placeholder="Example@mail.com" aria-label="Email" aria-describedby="basic-addon1" />
                         </div>
-                        <div class="row g-3 align-items-center">
-                            <div class="col-auto">
-                                <label for="inputPassword6" class="col-form-label">
-                                    <span class="input-group-text" id="basic-addon1">Password</span>
-                                </label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" />
-                            </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Password</span>
+                            <input type="password" id="inputPassword6" class="form-control" placeholder="*******" aria-label="password" aria-describedby="passwordHelpInline" />
                         </div>
-                            
-                            <button className="btn btn-primary my-5"> Sign up! </button>
-                            <li>
-                        <Link to="/" className="button button-primary button-wide-mobile button-sm">Back to Home</Link>
-                      </li>
+
+                        <button className="btn btn btn-dark my-2"> Sign up! </button>
+                        <br />
+                            <Link to="/" className="btn btn btn-dark my-2">Back to Home</Link>
                     </form>
                 </div>
             </div>

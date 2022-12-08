@@ -44,6 +44,9 @@ const App = () => {
             <Route path="/registrationform">
               <RegistrationForm />
             </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
           </Switch>
         </BrowserRouter>
       )} />
