@@ -1,11 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useLocation, Switch, Link, Route, BrowserRouter } from 'react-router-dom';
 import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
 import RegistrationForm from './views/RegistrationForm';
 import Login from './views/Login';
-import DataForm from './views/DataForm';
+import DataForm from './views/DataFormSend';
+import injectContext from "./store/appContext";
 
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
@@ -47,10 +48,13 @@ const App = () => {
             <Route path="/login">
               <Login />
             </Route>
+            <Route path="/dataform">
+              <DataForm />
+            </Route>
           </Switch>
         </BrowserRouter>
       )} />
   );
 }
 
-export default App;
+export default injectContext(App);

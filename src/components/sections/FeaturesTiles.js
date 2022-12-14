@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
 import Image from '../elements/Image';
+import { Context } from '../../store/appContext';
+
 
 const propTypes = {
   ...SectionTilesProps.types
@@ -22,6 +24,8 @@ const FeaturesTiles = ({
   pushLeft,
   ...props
 }) => {
+
+  const { store, actions } = useContext(Context)
 
   const outerClasses = classNames(
     'features-tiles section',
@@ -71,11 +75,11 @@ const FeaturesTiles = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    {store.dataSecondSection?.secondSection_MainTitle || "Robust Worflow"}                    
                     </h4>
                   <p className="m-0 text-sm">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                    </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -94,10 +98,10 @@ const FeaturesTiles = ({
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
                     Robust Workflow
-                    </h4>
+                  </h4>
                   <p className="m-0 text-sm">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                    </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -116,10 +120,10 @@ const FeaturesTiles = ({
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
                     Robust Workflow
-                    </h4>
+                  </h4>
                   <p className="m-0 text-sm">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                    </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -138,10 +142,10 @@ const FeaturesTiles = ({
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
                     Robust Workflow
-                    </h4>
+                  </h4>
                   <p className="m-0 text-sm">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                    </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -160,10 +164,10 @@ const FeaturesTiles = ({
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
                     Robust Workflow
-                    </h4>
+                  </h4>
                   <p className="m-0 text-sm">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                    </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -182,10 +186,10 @@ const FeaturesTiles = ({
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
                     Robust Workflow
-                    </h4>
+                  </h4>
                   <p className="m-0 text-sm">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                    </p>
+                  </p>
                 </div>
               </div>
             </div>

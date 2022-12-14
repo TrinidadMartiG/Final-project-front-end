@@ -68,14 +68,14 @@ const Hero = ({
                 Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.
                 </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
-                <ButtonGroup>
+          {/*       <ButtonGroup>
                   <Button tag="a" color="primary" wideMobile href="https://cruip.com/">
                     Get started
                     </Button>
                   <Button tag="a" color="dark" wideMobile href="https://github.com/cruip/open-react-template/">
                     View on Github
                     </Button>
-                </ButtonGroup>
+                </ButtonGroup> */}
               </div>
             </div>
           </div>
