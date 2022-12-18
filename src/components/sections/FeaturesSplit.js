@@ -53,7 +53,7 @@ const FeaturesSplit = ({
   );
 
   const sectionHeader = {
-    title: store.dataThirdSection?.thidSection_MainTitle|| 'Workflow that just works',
+    title: store.dataThirdSection?.thirdSection_MainTitle|| 'Workflow that just works',
     paragraph: store.dataThirdSection?.thirdSection_Description|| 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum — semper quis lectus nulla at volutpat diam ut venenatis.'
   };
 

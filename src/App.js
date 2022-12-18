@@ -5,7 +5,8 @@ import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
 import RegistrationForm from './views/RegistrationForm';
 import Login from './views/Login';
-import DataForm from './views/DataFormSend';
+import Form from './views/DataFormSend';
+import ModifyForm from './views/DataFormModify';
 import injectContext from "./store/appContext";
 
 // Layouts
@@ -48,8 +49,11 @@ const App = () => {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/dataform">
-              <DataForm />
+            <Route path="/dataformsend">
+              <Form />
+            </Route>
+            <Route path="/dataform_modify">
+              <ModifyForm />
             </Route>
           </Switch>
         </BrowserRouter>

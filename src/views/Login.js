@@ -1,18 +1,19 @@
 import React, {useState, useContext} from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 
 
 function Login() {
 
+    const history = useHistory()
     const { store, actions } = useContext(Context)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
 
     const handleSubmitLogin = (e) => {
         e.preventDefault()
-        actions.login(email, password)
+        actions.login(email, password, history)
     }
 
     const dealChangePassword = e => {

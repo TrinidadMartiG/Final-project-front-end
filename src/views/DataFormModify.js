@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 
-let Form = () => {
+
+let ModifyForm = () => {
 
     const { store, actions } = useContext(Context)
     /* State first section */
@@ -48,7 +50,7 @@ let Form = () => {
     /* First section functions */
     const handleSubmitFirstSection = (e) => {
         e.preventDefault()
-        send_data_firstsection()
+        send_data_firstsection(store.user?.user_id)
     }
 
     const dealChangeTitle = e => {
@@ -62,9 +64,9 @@ let Form = () => {
         console.log(e.target.value, 'dealChange e.target.value')
     }
 
-    const send_data_firstsection = () => {
-        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/send_data_firstsection", {
-            method: "POST",
+    const send_data_firstsection = (id) => {
+        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/update_data_firstsection/"+ id, {
+            method: "PUT",
             body: JSON.stringify({
                 mainTitle: inputMainTitle,
                 mainDescription: inputMainDescription,
@@ -83,7 +85,7 @@ let Form = () => {
     /* Second section functions */
     const handleSubmitSecondSection = (e) => {
         e.preventDefault()
-        send_data_secondsection()
+        send_data_secondsection(store.user?.user_id)
     }
     const dealChange_SecondSection_Title = e => {
         e.preventDefault()
@@ -156,9 +158,9 @@ let Form = () => {
         console.log(e.target.value, 'dealChange e.target.value')
     }
 
-    const send_data_secondsection = () => {
-        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/send_data_secondsection", {
-            method: "POST",
+    const send_data_secondsection = (id) => {
+        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/update_data_secondsection/"+id, {
+            method: "PUT",
             body: JSON.stringify({
                 secondSection_MainTitle: input_SecondSection_MainTitle,
                 secondSection_Description: input_SecondSection_Description,
@@ -166,8 +168,8 @@ let Form = () => {
                 secondSection_ConceptOne: input_SecondSection_ConceptOne,
                 secondSection_ConceptTwo_Title: input_SecondSection_ConceptTwo_Title,
                 secondSection_ConceptTwo: input_SecondSection_ConceptTwo,
-                secondSection_ConceptThre_Title: input_SecondSection_ConceptThree_Title,
-                secondSection_ConceptThre: input_SecondSection_ConceptThree,
+                secondSection_ConceptThree_Title: input_SecondSection_ConceptThree_Title,
+                secondSection_ConceptThree: input_SecondSection_ConceptThree,
                 secondSection_ConceptFour_Title: input_SecondSection_ConceptFour_Title,
                 secondSection_ConceptFour: input_SecondSection_ConceptFour,
                 secondSection_ConceptFive_Title: input_SecondSection_ConceptFive_Title,
@@ -188,7 +190,7 @@ let Form = () => {
     /* Start Third section */
     const handleSubmitThirdSection = (e) => {
         e.preventDefault()
-        send_data_thirdsection()
+        send_data_thirdsection(store.user?.user_id)
     }
     const dealChange_ThirdSection_Title = e => {
         e.preventDefault()
@@ -246,9 +248,9 @@ let Form = () => {
         console.log(e.target.value, 'dealChange e.target.value')
     }
 
-    const send_data_thirdsection = () => {
-        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/send_data_thirdsection", {
-            method: "POST",
+    const send_data_thirdsection = (id) => {
+        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/update_data_thirdsection/" + id, {
+            method: "PUT",
             body: JSON.stringify({
                 thirdSection_MainTitle: input_ThirdSection_MainTitle,
                 thirdSection_Description: input_ThirdSection_Description,
@@ -275,7 +277,7 @@ let Form = () => {
     /* Start fourth section */
     const handleSubmitFourthSection = (e) => {
         e.preventDefault()
-        send_data_fourthsection()
+        send_data_fourthsection(store.user?.user_id)
     }
     const dealChange_FourthSection_TestimonialsMainTitle = e => {
         e.preventDefault()
@@ -318,9 +320,9 @@ let Form = () => {
         console.log(e.target.value, 'dealChange e.target.value')
     }
 
-    const send_data_fourthsection = () => {
-        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/send_data_fourthsection", {
-            method: "POST",
+    const send_data_fourthsection = (id) => {
+        fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/update_data_fourthsection/" + id, {
+            method: "PUT",
             body: JSON.stringify({
                 fourthSection_TestimonialsMainTitle: input_FourthSection_TestimonialsMainTitle,
                 fourthSection_TestimonialsDescription: input_FourthSection_TestimonialsDescription,
@@ -351,10 +353,10 @@ let Form = () => {
                     <form onSubmit={handleSubmitFirstSection}>
                         <div>
                             <h4>First section Title:
-                                <input type="text" name="" id="" value={inputMainTitle} onChange={dealChangeTitle} />
+                                <input type="text" name="" id="" value={inputMainTitle} onChange={dealChangeTitle} placeholder={store.dataFirstSection?.mainTitle}/>
                             </h4>
                             <h5>First section Description:
-                                <input type="text" name="" id="" value={inputMainDescription} onChange={dealChangeDescription} />
+                                <input type="text" name="" id="" value={inputMainDescription} onChange={dealChangeDescription}placeholder={store.dataFirstSection?.mainDescription} />
                             </h5>
                             <button> Enviar </button>
                         </div>
@@ -362,46 +364,46 @@ let Form = () => {
                     <form onSubmit={handleSubmitSecondSection}>
                         <div>
                             <h4>Second section Title:
-                                <input type="text" name="" id="" value={input_SecondSection_MainTitle} onChange={dealChange_SecondSection_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_MainTitle} onChange={dealChange_SecondSection_Title} placeholder={store.dataSecondSection?.secondSection_MainTitle}/>
                             </h4>
                             <h5>Second section Description:
-                                <input type="text" name="" id="" value={input_SecondSection_Description} onChange={dealChange_SecondSection_Description} />
+                                <input type="text" name="" id="" value={input_SecondSection_Description} onChange={dealChange_SecondSection_Description} placeholder={store.dataSecondSection?.secondSection_Description}/>
                             </h5>
                             <h5>Second section Concept One Title:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptOne_Title} onChange={dealChange_SecondSection_ConceptOne_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptOne_Title} onChange={dealChange_SecondSection_ConceptOne_Title} placeholder={store.dataSecondSection?.secondSection_ConceptOne_Title}/>
                             </h5>
                             <h5>Second section Concept One:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptOne} onChange={dealChange_SecondSection_ConceptOne} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptOne} onChange={dealChange_SecondSection_ConceptOne} placeholder={store.dataSecondSection?.secondSection_ConceptOne}/>
                             </h5>
                             <h5>Second section Concept Two Title:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptTwo_Title} onChange={dealChange_SecondSection_ConceptTwo_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptTwo_Title} onChange={dealChange_SecondSection_ConceptTwo_Title} placeholder={store.dataSecondSection?.secondSection_ConceptTwo_Title} />
                             </h5>
                             <h5>Second section Concept Two:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptTwo} onChange={dealChange_SecondSection_ConceptTwo} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptTwo} onChange={dealChange_SecondSection_ConceptTwo} placeholder={store.dataSecondSection?.secondSection_ConceptTwo} />
                             </h5>
                             <h5>Second section Concept Three Title:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptThree_Title} onChange={dealChange_SecondSection_ConceptThree_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptThree_Title} onChange={dealChange_SecondSection_ConceptThree_Title} placeholder={store.dataSecondSection?.secondSection_ConceptThre_Title} />
                             </h5>
                             <h5>Second section Concept Three:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptThree} onChange={dealChange_SecondSection_ConceptThree} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptThree} onChange={dealChange_SecondSection_ConceptThree} placeholder={store.dataSecondSection?.secondSection_ConceptThree}  />
                             </h5>
                             <h5>Second section Concept Four Title:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptFour_Title} onChange={dealChange_SecondSection_ConceptFour_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptFour_Title} onChange={dealChange_SecondSection_ConceptFour_Title} placeholder={store.dataSecondSection?.secondSection_ConceptFour_Title} />
                             </h5>
                             <h5>Second section Concept Four:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptFour} onChange={dealChange_SecondSection_ConceptFour} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptFour} onChange={dealChange_SecondSection_ConceptFour} placeholder={store.dataSecondSection?.secondSection_ConceptFour}  />
                             </h5>
                             <h5>Second section Concept Five Title:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptFive_Title} onChange={dealChange_SecondSection_ConceptFive_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptFive_Title} onChange={dealChange_SecondSection_ConceptFive_Title} placeholder={store.dataSecondSection?.secondSection_ConceptFive_Title} />
                             </h5>
                             <h5>Second section Concept Five:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptFive} onChange={dealChange_SecondSection_ConceptFive} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptFive} onChange={dealChange_SecondSection_ConceptFive} placeholder={store.dataSecondSection?.secondSection_ConceptFive} />
                             </h5>
                             <h5>Second section Concept Six Title:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptSix_Title} onChange={dealChange_SecondSection_ConceptSix_Title} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptSix_Title} onChange={dealChange_SecondSection_ConceptSix_Title} placeholder={store.dataSecondSection?.secondSection_ConceptSix_Title} />
                             </h5>
                             <h5>Second section Concept Six:
-                                <input type="text" name="" id="" value={input_SecondSection_ConceptSix} onChange={dealChange_SecondSection_ConceptSix} />
+                                <input type="text" name="" id="" value={input_SecondSection_ConceptSix} onChange={dealChange_SecondSection_ConceptSix} placeholder={store.dataSecondSection?.secondSection_ConceptSix}  />
                             </h5>
                             <hr className="mx-5" />
                             <button> Enviar </button>
@@ -410,37 +412,37 @@ let Form = () => {
                     <form onSubmit={handleSubmitThirdSection}>
                         <div>
                             <h4>Third section Title:
-                                <input type="text" name="" id="" value={input_ThirdSection_MainTitle} onChange={dealChange_ThirdSection_Title} />
+                            <input type="text" name="" id="" value={input_ThirdSection_MainTitle} onChange={dealChange_ThirdSection_Title} placeholder={store.dataThirdSection?.thirdSection_MainTitle}/>
                             </h4>
                             <h5>Third section Description:
-                                <input type="text" name="" id="" value={input_ThirdSection_Description} onChange={dealChange_ThirdSection_Description} />
+                                <input type="text" name="" id="" value={input_ThirdSection_Description} onChange={dealChange_ThirdSection_Description} placeholder={store.dataThirdSection?.thirdSection_Description}/>
                             </h5>
                             <h5>Third section left concept One BlueHighlightText
-                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptOne_BlueHighlightText} onChange={dealChange_ThirdSection_LeftConceptOne_BlueHighlightText} />
+                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptOne_BlueHighlightText} onChange={dealChange_ThirdSection_LeftConceptOne_BlueHighlightText} placeholder={store.dataThirdSection?.thirdSection_LeftConceptOne_BlueHighlightText}/>
                             </h5>
                             <h5>Third section left concept One Title
-                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptOne_Title} onChange={dealChange_ThirdSection_LeftConceptOne_Title} />
+                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptOne_Title} onChange={dealChange_ThirdSection_LeftConceptOne_Title} placeholder={store.dataThirdSection?.thirdSection_LeftConceptOne_Title}/>
                             </h5>
                             <h5>Third section left concept One Description
-                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptOne_Description} onChange={dealChange_ThirdSection_LeftConceptOne_Description} />
+                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptOne_Description} onChange={dealChange_ThirdSection_LeftConceptOne_Description} placeholder={store.dataThirdSection?.thirdSection_LeftConceptOne_Description}/>
                             </h5>
                             <h5>Third section right concept Two BlueHighlightText
-                                <input type="text" name="" id="" value={input_ThirdSection_RightConceptTwo_BlueHighlightText} onChange={dealChange_ThirdSection_RightConceptTwo_BlueHighlightText} />
+                                <input type="text" name="" id="" value={input_ThirdSection_RightConceptTwo_BlueHighlightText} onChange={dealChange_ThirdSection_RightConceptTwo_BlueHighlightText} placeholder={store.dataThirdSection?.thirdSection_RightConceptTwo_BlueHighlightText}/>
                             </h5>
                             <h5>Third section right concept Two Title
-                                <input type="text" name="" id="" value={input_ThirdSection_RightConceptTwo_Title} onChange={dealChange_ThirdSection_RightConceptTwo_Title} />
+                                <input type="text" name="" id="" value={input_ThirdSection_RightConceptTwo_Title} onChange={dealChange_ThirdSection_RightConceptTwo_Title} placeholder={store.dataThirdSection?.thirdSection_RightConceptTwo_Title}/>
                             </h5>
                             <h5>Third section right concept Two Description
-                                <input type="text" name="" id="" value={input_ThirdSection_RightConceptTwo_Description} onChange={dealChange_ThirdSection_RightConceptTwo_Description} />
+                                <input type="text" name="" id="" value={input_ThirdSection_RightConceptTwo_Description} onChange={dealChange_ThirdSection_RightConceptTwo_Description} placeholder={store.dataThirdSection?.thirdSection_RightConceptTwo_Description}/>
                             </h5>
                             <h5>Third section left concept Three BlueHighlightText
-                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptThree_BlueHighlightText} onChange={dealChange_ThirdSection_LeftConceptThree_BlueHighlightText} />
+                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptThree_BlueHighlightText} onChange={dealChange_ThirdSection_LeftConceptThree_BlueHighlightText} placeholder={store.dataThirdSection?.thirdSection_LeftConceptThree_BlueHighlightText}/>
                             </h5>
                             <h5>Third section left concept Three Title
-                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptThree_Title} onChange={dealChange_ThirdSection_LeftConceptThree_Title} />
+                                <input type="text" name="" id="" value={input_ThirdSection_LeftConceptThree_Title} onChange={dealChange_ThirdSection_LeftConceptThree_Title} placeholder={store.dataThirdSection?.thirdSection_LeftConceptThree_Title}/>
                             </h5>
                             <h5>Third section left concept Three Description
-                                <input type="text" name="" id="" value={input_ThirdSection_LefttConceptThree_Description} onChange={dealChange_ThirdSection_LefttConceptThree_Description} />
+                                <input type="text" name="" id="" value={input_ThirdSection_LefttConceptThree_Description} onChange={dealChange_ThirdSection_LefttConceptThree_Description} placeholder={store.dataThirdSection?.thirdSection_LefttConceptThree_Description}/>
                             </h5>
                             <hr className="mx-5" />
                             <button> Enviar </button>
@@ -449,37 +451,40 @@ let Form = () => {
                     <form onSubmit={handleSubmitFourthSection}>
                         <div>
                             <h4>Fourth section Testimonial Title:
-                                <input type="text" name="" id="" value={input_FourthSection_TestimonialsMainTitle} onChange={dealChange_FourthSection_TestimonialsMainTitle} />
+                                <input type="text" name="" id="" value={input_FourthSection_TestimonialsMainTitle} onChange={dealChange_FourthSection_TestimonialsMainTitle} placeholder={store.dataFourthSection?.fourthSection_TestimonialsMainTitle}/>
                             </h4>
                             <h5>Fourth section Description:
-                                <input type="text" name="" id="" value={input_FourthSection_TestimonialsDescription} onChange={dealChange_fourthSection_TestimonialsDescription} />
+                                <input type="text" name="" id="" value={input_FourthSection_TestimonialsDescription} onChange={dealChange_fourthSection_TestimonialsDescription} placeholder={store.dataFourthSection?.fourthSection_TestimonialsDescription}/>
                             </h5>
                             <h5>Fourth section Card One Text:
-                                <input type="text" name="" id="" value={input_FourthSection_CardOneText} onChange={dealChange_fourthSection_CardOneText} />
+                                <input type="text" name="" id="" value={input_FourthSection_CardOneText} onChange={dealChange_fourthSection_CardOneText} placeholder={store.dataFourthSection?.fourthSection_CardOneText}/>
                             </h5>
                             <h5>Fourth section Card One Person Name:
-                                <input type="text" name="" id="" value={input_FourthSection_CardOne_Person} onChange={dealChange_fourthSection_CardOne_Person} />
+                                <input type="text" name="" id="" value={input_FourthSection_CardOne_Person} onChange={dealChange_fourthSection_CardOne_Person} placeholder={store.dataFourthSection?.fourthSection_CardOne_Person}/>
                             </h5>
                             <h5>Fourth section Card Two Text:
-                                <input type="text" name="" id="" value={input_FourthSection_CardTwoText} onChange={dealChange_fourthSection_CardTwoText} />
+                                <input type="text" name="" id="" value={input_FourthSection_CardTwoText} onChange={dealChange_fourthSection_CardTwoText} placeholder={store.dataFourthSection?.fourthSection_CardTwoText}/>
                             </h5>
                             <h5>Fourth section Card Two Person Name:
-                                <input type="text" name="" id="" value={input_FourthSection_CardTwo_Person} onChange={dealChange_fourthSection_CardTwo_Person} />
+                                <input type="text" name="" id="" value={input_FourthSection_CardTwo_Person} onChange={dealChange_fourthSection_CardTwo_Person} placeholder={store.dataFourthSection?.fourthSection_CardTwo_Person}/>
                             </h5>
                             <h5>Fourth section Card Three Text:
-                                <input type="text" name="" id="" value={input_FourthSection_CardThreeText} onChange={dealChange_fourthSection_CardThreeText} />
+                                <input type="text" name="" id="" value={input_FourthSection_CardThreeText} onChange={dealChange_fourthSection_CardThreeText} placeholder={store.dataFourthSection?.fourthSection_CardThreeText}/>
                             </h5>
                             <h5>Fourth section Card Three Person Name:
-                                <input type="text" name="" id="" value={input_FourthSection_CardThree_Person} onChange={dealChange_fourthSection_CardThree_Person} />
+                                <input type="text" name="" id="" value={input_FourthSection_CardThree_Person} onChange={dealChange_fourthSection_CardThree_Person} placeholder={store.dataFourthSection?.fourthSection_CardThree_Person}/>
                             </h5>
                             <hr className="mx-5" />
                             <button> Enviar </button>
                         </div>
                     </form>
+                    <Link to='/' >
+                        <button className="btn btn-dark my-5 ">Back to home</button>
+                    </Link>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Form
+export default ModifyForm

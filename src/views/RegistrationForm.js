@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
+import { Context } from "../store/appContext";
 
 function RegistrationForm() {
+
+    const { store, actions } = useContext(Context)
+    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
+
+    const handleSubmitLogin = (e) => {
+        e.preventDefault()
+        actions.registerUser(name,email, password)
+    }
+
+    const dealChangeName = e => {
+        e.preventDefault()
+        setName(e.target.value)
+        console.log(e.target.value, 'dealChange e.target.value')
+    }
+    const dealChangeEmail = e => {
+        e.preventDefault()
+        setEmail(e.target.value)
+        console.log(e.target.value, 'dealChange e.target.value')
+    }
+    const dealChangePassword = e => {
+        e.preventDefault()
+        setPassword(e.target.value)
+        console.log(e.target.value, 'dealChange e.target.value')
+    }
+
+    
     return (
         <>
             <div className="row mt-5">
@@ -12,18 +41,18 @@ function RegistrationForm() {
                     <form id="form" action="#" className="">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1"><FaUserAlt /></span>
-                            <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1" />
+                            <input type="text" class="form-control" placeholder="Nombre" value={name} onChange= {dealChangeName} aria-label="Username" aria-describedby="basic-addon1" />
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Email</span>
-                            <input type="email" class="form-control" placeholder="Example@mail.com" aria-label="Email" aria-describedby="basic-addon1" />
+                            <input type="email" class="form-control" placeholder="Example@mail.com" value={email} onChange= {dealChangeEmail} aria-label="Email" aria-describedby="basic-addon1" />
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Password</span>
-                            <input type="password" id="inputPassword6" class="form-control" placeholder="*******" aria-label="password" aria-describedby="passwordHelpInline" />
+                            <input type="password" id="inputPassword6" class="form-control" value={password} onChange= {dealChangePassword}  placeholder="*******" aria-label="password" aria-describedby="passwordHelpInline" />
                         </div>
 
-                        <button className="btn btn btn-dark my-2"> Sign up! </button>
+                        <button className="btn btn btn-dark my-2" onClick={handleSubmitLogin}> Sign up! </button>
                         <br />
                             <Link to="/" className="btn btn btn-dark my-2">Back to Home</Link>
                     </form>

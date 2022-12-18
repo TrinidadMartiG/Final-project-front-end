@@ -1,3 +1,4 @@
+import { json } from "react-router";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -7,49 +8,92 @@ const getState = ({ getStore, getActions, setStore }) => {
 			dataFourthSection: null,
 			email: null,
 			password: null,
-			user_id: null
+			user: null,
 		},
 
 		actions: {
 			// Use getActions to call a function within a fuction
-			getDataFirstSection: (user) => {
-				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_firstsection/"+user)
+			getDataFirstSection: (id) => {
+				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_firstsection/" + id)
 					.then(response => response.json())
 					.then(result => setStore({ dataFirstSection: result }))
 					.catch(error => console.log('error', error));
 			},
-			getDataSecondSection: () => {
-				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_secondsection/5")
+			getDataSecondSection: (id) => {
+				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_secondsection/" + id)
 					.then(response => response.json())
 					.then(result => setStore({ dataSecondSection: result }))
 					.catch(error => console.log('error', error));
 			},
-			getDataThirdSection: () => {
-				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_thirdsection/5")
+			getDataThirdSection: (id) => {
+				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_thirdsection/" + id)
 					.then(response => response.json())
-					.then(result => setStore({ dataSecondSection: result }))
+					.then(result => setStore({ dataThirdSection: result }))
 					.catch(error => console.log('error', error));
 			},
-			getDataFourthSection: () => {
-				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_fourthsection/5")
+			getDataFourthSection: (id) => {
+				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/data_fourthsection/" + id)
 					.then(response => response.json())
 					.then(result => setStore({ dataFourthSection: result }))
 					.catch(error => console.log('error', error));
 			},
-			login: (email, password) => {
+			registerUser: (name, email, password, history) => {
+				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/create_user", {
+					method: "POST",
+					body: JSON.stringify({
+						name: name,
+						email: email,
+						password: password
+					}),
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
+					.then(response => response.json())
+					.then(data => {
+						if (data.registerUser == "ok"){
+							history.push("/")
+						}})
+					.catch(error => console.log(error))
+			}, 
+
+			login: (email, password, history) => {
 				fetch("https://8080-trinidadmar-finalprojec-uaqaje52lgr.ws-us79.gitpod.io/login", {
 					method: "POST",
 					body: JSON.stringify({
 						email: email,
-						password: password
+						password: password,
 					}),
 					headers: {
 						"Content-Type": "application/json"
 					}
 				})
-				.then(response => response.json())
-				.then(data => console.log(data))
-				.then(data => store.user_id(data.user_id))
+					.then(response => response.json())
+					.then(data => {
+						if (data.login == "ok") {
+							sessionStorage.setItem("user", JSON.stringify(data))
+							setStore({
+								user: data
+							})
+							history.push("/")
+						}
+					})
+			},
+			checkUser: () => {
+				if (sessionStorage.getItem("user")) {
+					setStore({
+						user: JSON.parse(sessionStorage.getItem("user"))
+					})
+				}
+			},
+			logout: (history) => {
+				if (sessionStorage.getItem("user")) {
+					sessionStorage.removeItem("user")
+					setStore({
+						user: null
+					})
+					history.push("/login")
+				}
 			}
 		},
 	};

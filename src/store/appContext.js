@@ -22,10 +22,13 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
-			state.actions.getDataFirstSection();
-			state.actions.getDataSecondSection();
-			state.actions.getDataThirdSection();
-			state.actions.getDataFourthSection();
+			state.actions.checkUser()
+			if (state.store.user) {
+				state.actions.getDataFirstSection(state.store.user?.user_id);
+				state.actions.getDataSecondSection(state.store.user?.user_id);
+				state.actions.getDataThirdSection(state.store.user?.user_id);
+				state.actions.getDataFourthSection(state.store.user?.user_id);
+			}
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,
