@@ -1,8 +1,13 @@
-import React, { useRef, useEffect } from 'react';
-import { useLocation, Switch } from 'react-router-dom';
+import React, { useRef, useEffect, useState } from 'react';
+import { useLocation, Switch, Link, Route, BrowserRouter } from 'react-router-dom';
 import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
+import RegistrationForm from './views/RegistrationForm';
+import Login from './views/Login';
+import Form from './views/DataFormSend';
+import ModifyForm from './views/DataFormModify';
+import injectContext from "./store/appContext";
 
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
@@ -35,11 +40,25 @@ const App = () => {
     <ScrollReveal
       ref={childRef}
       children={() => (
-        <Switch>
-          <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+            <Route path="/registrationform">
+              <RegistrationForm />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/dataformsend">
+              <Form />
+            </Route>
+            <Route path="/dataform_modify">
+              <ModifyForm />
+            </Route>
+          </Switch>
+        </BrowserRouter>
       )} />
   );
 }
 
-export default App;
+export default injectContext(App);

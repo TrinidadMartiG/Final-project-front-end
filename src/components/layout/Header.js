@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Logo from './partials/Logo';
+import { Context } from '../../store/appContext';
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -30,8 +31,9 @@ const Header = ({
   ...props
 }) => {
 
+  const { store, actions } = useContext(Context)
+  const history = useHistory()
   const [isActive, setIsactive] = useState(false);
-
   const nav = useRef(null);
   const hamburger = useRef(null);
 
@@ -44,7 +46,7 @@ const Header = ({
       document.removeEventListener('click', clickOutside);
       closeMenu();
     };
-  });  
+  });
 
   const openMenu = () => {
     document.body.classList.add('off-nav-is-active');
@@ -66,7 +68,7 @@ const Header = ({
     if (!nav.current) return
     if (!isActive || nav.current.contains(e.target) || e.target === hamburger.current) return;
     closeMenu();
-  }  
+  }
 
   const classes = classNames(
     'site-header',
@@ -106,23 +108,61 @@ const Header = ({
                     isActive && 'is-active'
                   )}>
                 <div className="header-nav-inner">
-                  <ul className={
-                    classNames(
-                      'list-reset text-xs',
-                      navPosition && `header-nav-${navPosition}`
-                    )}>
-                    <li>
-                      <Link to="#0" onClick={closeMenu}>Documentation</Link>
-                    </li>
-                  </ul>
-                  {!hideSignin &&
+
+                  {store.user?.user_id == null && (
+                    <ul className={
+                      classNames(
+                        'list-reset text-xs',
+                        navPosition && `header-nav-${navPosition}`
+                      )}>
+                      <li>
+                        <Link to="/login" className="button button-primary button-wide-mobile button-sm">Log in</Link>
+                      </li>
+                    </ul>
+                  )
+                  }
+                  {store.user?.user_id && (
                     <ul
                       className="list-reset header-nav-right"
                     >
                       <li>
-                        <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Sign up</Link>
+                        <Link to="/dataformsend" className="button button-primary button-wide-mobile button-sm">Send Data</Link>
                       </li>
-                    </ul>}
+                    </ul>
+                  )
+                  }
+                  {store.user?.user_id && (
+                    <ul
+                      className="list-reset header-nav-right"
+                    >
+                      <li>
+                        <Link to="/dataform_modify" className="button button-primary button-wide-mobile button-sm">Modify Your Data</Link>
+                      </li>
+                    </ul>
+                  )
+                  }
+                  {store.user?.user_id && (
+                    <ul
+                      className="list-reset header-nav-right">
+                      <li>
+                        <Link to="/logout" className="button button-primary button-wide-mobile button-sm" onClick={(e) => {
+                          e.preventDefault()
+                          actions.logout(history)
+                        }}>Logout</Link>
+                      </li>
+                    </ul>
+                  )
+                  }
+                  {store.user?.user_id == null && (
+                    <ul
+                      className="list-reset header-nav-right">
+                      <li>
+                        <Link to="/registrationform" className="button button-primary button-wide-mobile button-sm">Sign up</Link>
+                      </li>
+                    </ul>
+
+                  )
+                  }
                 </div>
               </nav>
             </>}
